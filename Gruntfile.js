@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: './build/',
                     src: '**/js/*.js',
-                    dest: './js'
+                    dest: './build/'
                 }]
             },
             options: {
