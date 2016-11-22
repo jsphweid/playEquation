@@ -51,22 +51,22 @@ function FooplotSVGRecorder() {
   this.moveToY=null;
   this.clear=function() {
     this.svgBody='';
-  }
+  };
   this.fillText=function(_text,_x,_y) {
     var _textAnchor='start';
     if(this.textAlign==='center') _textAnchor='middle';
     if(this.textAlign==='right') _textAnchor='end';
     this.svgBody+='<text x="'+_x+'" y="'+_y+'" text-anchor="'+_textAnchor+'" style="font:'+this.font+';stroke:none;fill:'+this.fillStyle+'">'+_text+'</text>';
-  }
+  };
   this.beginPath=function() {
     this.path_d='';
-  }
+  };
   this.moveTo=function(_x,_y) {
     if(!isNaN(_x) && !isNaN(_y)) {
       this.moveToX=_x.toFixed(2);
       this.moveToY=_y.toFixed(2);
     }
-  }
+  };
   this.lineTo=function(_x,_y) {
     if(this.moveToX) {
       this.path_d+='M'+this.moveToX+' '+this.moveToY+' ';
@@ -74,14 +74,14 @@ function FooplotSVGRecorder() {
       this.moveToY=null;
     }
     this.path_d+='L'+_x.toFixed(2)+' '+_y.toFixed(2)+' ';
-  }
+  };
   this.stroke=function() {
     this.svgBody+='<path d="'+this.path_d+'" style="fill:none;stroke:'+this.strokeStyle+';stroke-width:'+this.lineWidth+';" />';
     this.path_d='';
-  }
+  };
   this.fillRect=function(_x,_y,_w,_h) {
     this.svgBody+='<rect x="'+_x.toFixed(2)+'" y="'+_y.toFixed(2)+'" width="'+_w.toFixed(2)+'" height="'+_h.toFixed(2)+'" style="fill:'+this.fillStyle+';stroke:none;" />';
-  }
+  };
   this.getSVG=function() {
     var _svg='';
     _svg+='<?xml version="1.0" standalone="no"?>';
@@ -92,7 +92,7 @@ function FooplotSVGRecorder() {
     _svg+=this.svgBody;
     _svg+='</g></svg>';
     return _svg;
-  }
+  };
 }
 
 function Fooplot(container,options) {
@@ -156,7 +156,7 @@ function Fooplot(container,options) {
     newtool.style.padding='0px';
     newtool.style.marginRight='15px';
     this.toolcontainer.appendChild(newtool);
-  }
+  };
 
   this.addToolButton=function(image,action,modeId,tooltip) {
     var newtool=document.createElement('button');
@@ -171,37 +171,37 @@ function Fooplot(container,options) {
     newtool.style.marginRight='15px';
     newtool.style.cursor='pointer';
     if(!modeId) {
-      newtool.onmousedown=function() {this.style.opacity=0.7;this.style.filter='alpha(opacity=70)';}
-      newtool.onmouseup=function() {this.style.opacity=1;this.style.filter='';}
-      newtool.onmouseout=function() {this.style.opacity=1;this.style.filter='';}
+      newtool.onmousedown=function() {this.style.opacity=0.7;this.style.filter='alpha(opacity=70)';};
+      newtool.onmouseup=function() {this.style.opacity=1;this.style.filter='';};
+      newtool.onmouseout=function() {this.style.opacity=1;this.style.filter='';};
       newtool.onclick=action;
     } else {
       newtool.onclick=function() {
-        for (i in FOOPLOT_INSTANCES) if(this.parentNode===FOOPLOT_INSTANCES[i].toolcontainer) var _self=FOOPLOT_INSTANCES[i];
+        for (var i in FOOPLOT_INSTANCES) if(this.parentNode===FOOPLOT_INSTANCES[i].toolcontainer) var _self=FOOPLOT_INSTANCES[i];
         _self.selectMode(this);
-      }
+      };
       this.toolsMode.push({'tool':newtool,'id':modeId});
     }
     this.toolcontainer.appendChild(newtool);
     return newtool;
-  }
+  };
 
   this.hideIntersection=function() {
     this.intersectionPoint.style.visibility='hidden';
     this.intersectionDisplay.style.visibility='hidden';
-  }
+  };
 
   this.hideTrace=function() {
     this.tracePoint.style.visibility='hidden';
     this.traceDisplay.style.visibility='hidden';
-  }
+  };
 
   this.toolsMode=[];
   this.selectedMode=FOOPLOT_MODE_MOVE;
   this.selectMode=function(obj) {
     this.hideIntersection();
     this.hideTrace();
-    for (i in this.toolsMode) {
+    for (var i in this.toolsMode) {
       if(this.toolsMode[i].tool===obj || this.toolsMode[i].id===obj) {
         this.selectedMode=this.toolsMode[i].id;
         this.toolsMode[i].tool.style.opacity=0.7;
@@ -211,7 +211,7 @@ function Fooplot(container,options) {
         this.toolsMode[i].tool.style.filter='';
       }
     }
-  }
+  };
 
   this.zoomTimeout=null;
   this.zoomSelf=null;
@@ -234,7 +234,7 @@ function Fooplot(container,options) {
       this.zoomSelf=this;
       this.zoomPendingFactor*=factor;
       this.zoomTimeout=window.setTimeout(function(_self) {
-        if(!_self) for (i in FOOPLOT_INSTANCES) if(FOOPLOT_INSTANCES[i].zoomSelf) var _self=FOOPLOT_INSTANCES[i].zoomSelf;
+        if(!_self) for (var i in FOOPLOT_INSTANCES) if(FOOPLOT_INSTANCES[i].zoomSelf) var _self=FOOPLOT_INSTANCES[i].zoomSelf;
         var centerx=(_self.xmax+_self.xmin)/2;
         var centery=(_self.ymax+_self.ymin)/2;
         _self.xmax=(_self.xmax-centerx)/_self.zoomPendingFactor+centerx;
@@ -255,12 +255,12 @@ function Fooplot(container,options) {
         _self.zoomTimeout=null;
         _self.zoomSelf=null;
       },FOOPLOT_TRANSITIONS?1:0,this); // changed this from 450 to 1
-  }
+  };
 
   this.toolZoomIn=this.addToolButton(
     'url(\'data:image/gif;base64,R0lGODlhIAAgAPZRAP9/AP+AAP+AAf+AAv+BA/+BBP+DB/+GDf+GDv+HD/+KFv+LGP+MGv+OHf+PH/+QIv+UKf+UKv+YMv+aNv+bN/+gQf+iRf+jSP+kSf+nUP+oUv+pU/+pVP+qVv+sWf+wYf+xY/+2bv+5c/+8ev+9fP+/gP/Bg//Chv/Eiv/Gjf/HkP/Jk//Ll//Mmf/Onv/Qof/Ysv/bt//cuf/cuv/du//evf/evv/gwf/gwv/hw//jx//kyv/mzf/nz//s2v/v3//v4P/w4f/w4v/x4//y5v/06v/27f/48f/59P/69v/79//7+P/8+f/8+v/9+//+/f/+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFIALAAAAAAgACAAAAf+gFJSAAEAhoeIiYqJglKFi5CRhwGDkpaSj5eak5oGDJuaFio6SFFGMycQoIoJLlGvsK9IIpmgFECxua85CqsJQ7lAP0S5MKsvuUuGFLofmxi6ygDMuUe9ly3Ry7pRHpo8uk3buimXBk2vNQnrCYYG7AmlUTmXD7AytYpLr0OXAfIyDAg0YCjAQAPyYmjKoW0atxOaVDSklguDJgnoYkmjCAtIO00lko2LVQGUAXCxePTwoUvDqgY1uIVzCSpACHm5hoyQ16TDKgAOQLDYUaQGig7tMOyL0oTmT0hKX/V8GgkDT1VUF0UtkbUqCUX5uiIKKxaRo7KJKAkihLaQoEAAOw==\')',
     function() {
-      for (i in FOOPLOT_INSTANCES) if(this.parentNode===FOOPLOT_INSTANCES[i].toolcontainer) var _self=FOOPLOT_INSTANCES[i];
+      for (var i in FOOPLOT_INSTANCES) if(this.parentNode===FOOPLOT_INSTANCES[i].toolcontainer) var _self=FOOPLOT_INSTANCES[i];
       _self.zoom(2);
     },
     null,
@@ -270,8 +270,8 @@ function Fooplot(container,options) {
   this.toolZoomOut=this.addToolButton(
     'url(\'data:image/gif;base64,R0lGODlhIAAgAPZLAP9/AP+AAP+AAf+AAv+BBP+DB/+GDf+GDv+HD/+KFv+LF/+LGP+MGv+OHf+PH/+QIv+UKf+UKv+YMv+bN/+gQf+iRf+jSP+kSf+nUP+oUv+pU/+pVP+qVv+rWP+sWf+wYf+xY/+zZ/+2bv+5c/+8ev+9fP+/gP/Bg//Chv/Eiv/Gjf/HkP/Jk//Ll//Mmf/Onv/Qof/Ysv/bt//cuv/evf/evv/gwf/gwv/hw//jx//kyv/mzf/v4P/w4f/w4v/x4//06v/27f/48f/59P/69v/79//7+P/8+v/9+//+/f/+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAEwALAAAAAAgACAAAAfXgExMAAEAhoeIiYqJgkyFi5CRhwGDkpaSj5eak5oFDJuaFSw5Q0tBMygQoIoIL0uvsK9DI5mgEzyxua84CqsIP7rBMaswwcYfmxfGxkILmi7Lxh2aO9HBKpcFR7khCt7exbE2lw+604gtuT+XAaWx54fpsTKaOda6KJoq97kXmhL8YPFAsKlEwCUUQBWoxi/DqgY1+B1xCCqACHfqSLg7wmEVgAcfWugAUiMFB4IXjLya6FFSypUdW0K6sFGVzEUvTdyMdKHEzlW1fipyJDQRJUFFDRUSFAgAOw==\')',
     function() {
-      for (i in FOOPLOT_INSTANCES) if(this.parentNode===FOOPLOT_INSTANCES[i].toolcontainer) var _self=FOOPLOT_INSTANCES[i];
-      _self.zoom(.5);
+      for (var i in FOOPLOT_INSTANCES) if(this.parentNode===FOOPLOT_INSTANCES[i].toolcontainer) var _self=FOOPLOT_INSTANCES[i];
+      _self.zoom(0.5);
     },
     null,
     'Zoom Out'
@@ -410,7 +410,7 @@ function Fooplot(container,options) {
     this.canvas.setAttribute('height',this.height);
     this.recorder.width=this.width;
     this.recorder.height=this.height;
-  }
+  };
 
   this.canvas=document.createElement('canvas');
   try { if(FOOPLOT_MSIE) {
@@ -424,6 +424,7 @@ function Fooplot(container,options) {
   this.context=this.canvas.getContext("2d");
 
   this.getRealGrid=function() {
+    var orderfull, order, rem, realxgrid, realygrid;
     if(parseFloat(this.xgrid)) {
       realxgrid=this.xgrid;
     } else {
@@ -431,8 +432,8 @@ function Fooplot(container,options) {
       order=Math.floor(orderfull);
       rem=orderfull-order;
       realxgrid=Math.pow(10,order);
-      if(rem>.7) realxgrid*=5;
-      else if(rem>.3) realxgrid*=2;
+      if(rem>0.7) realxgrid*=5;
+      else if(rem>0.3) realxgrid*=2;
     }
     if(parseFloat(this.ygrid)) {
       realygrid=this.ygrid;
@@ -441,11 +442,11 @@ function Fooplot(container,options) {
       order=Math.floor(orderfull);
       rem=orderfull-order;
       realygrid=Math.pow(10,order);
-      if(rem>.7) realygrid*=5;
-      else if(rem>.3) realygrid*=2;
+      if(rem>0.7) realygrid*=5;
+      else if(rem>0.3) realygrid*=2;
     }
     return [realxgrid,realygrid];
-  }
+  };
 
   this.drawGrid=function() {
     var px,py,x,y,realxgrid,realygrid,order,orderfull,g;
@@ -468,10 +469,10 @@ function Fooplot(container,options) {
       }
       this.context.stroke();
     }
-  }
+  };
 
   this.drawLabels=function() {
-    var px,py,x,y,realxgrid,realygrid;
+    var px,py,x,y,realxgrid,realygrid,g,printy,printx;
     g=this.getRealGrid();
     realxgrid=g[0];
     realygrid=g[1];
@@ -519,9 +520,9 @@ function Fooplot(container,options) {
         if(px>8 && px<this.width-8) this.context.fillText(printx,px,py+this.width/80+8);
       }
     }
-  }
+  };
   this.drawAxes=function() {
-    var px,py,x,y,realxgrid,realygrid;
+    var px,py,x,y,realxgrid,realygrid,g;
     g=this.getRealGrid();
     realxgrid=g[0];
     realygrid=g[1];
@@ -573,7 +574,7 @@ function Fooplot(container,options) {
         this.context.stroke();
       }
     }
-  }
+  };
 
   this.clear=function() {
     if(this.context!=this.recorder) {
@@ -584,7 +585,7 @@ function Fooplot(container,options) {
     }
     this.context.fillStyle=this.backgroundColor;
     this.context.fillRect(0,0,this.width,this.height);
-  }
+  };
 
   // PRIVATE: EVENT HANDLERS
 
@@ -596,7 +597,7 @@ function Fooplot(container,options) {
 
   this.container.onmousemove=function(e) {
     if(e === null) e = window.event;
-    for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+    for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
     if(e && e.preventDefault) e.preventDefault();
     if(e && (e.srcElement?e.srcElement:e.target).className==='fooplot-tool') return null;
     if(_self.zoomTimeout) return null;
@@ -623,34 +624,34 @@ function Fooplot(container,options) {
         case FOOPLOT_MODE_TRACE:
         var initx=mx/_self.width*(_self.xmax-_self.xmin)+_self.xmin;
         var order=Math.pow(10,2-Math.floor(Math.log(_self.xmax-_self.xmin)/Math.log(10)));
-        var initx=parseFloat(Math.floor(initx*order)/order);
+        initx=parseFloat(Math.floor(initx*order)/order);
         var inity=(1-my/_self.height)*(_self.ymax-_self.ymin)+_self.ymin;
         _self.showTrace(initx,inity);
         break;
       }
     }
-  }
+  };
 
   this.container.onmouseover=function(e) {
     if(e === null) e = window.event;
-    for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+    for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
     if(e && e.preventDefault) e.preventDefault();
     _self.toolcontainer.style.visibility='visible';
     if(e && (e.srcElement?e.srcElement:e.target).className==='fooplot-tool') return null;
-  }
+  };
 
   this.container.onmouseout=function(e) {
     if(e === null) e = window.event;
-    for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+    for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
     if(e && e.preventDefault) e.preventDefault();
     _self.toolcontainer.style.visibility='hidden';
     if(e && (e.srcElement?e.srcElement:e.target).className=='fooplot-tool') return null;
     this.onmouseup(e);
-  }
+  };
 
   this.container.onmousedown=function(e) {
     if(e === null) e = window.event;
-    for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+    for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
     if(e && e.preventDefault) e.preventDefault();
     if(e && (e.srcElement?e.srcElement:e.target).className=='fooplot-tool') return null;
     if(_self.zoomTimeout) return null;
@@ -679,7 +680,7 @@ function Fooplot(container,options) {
   this.container.onmouseup=function(e) {
     if(e === null) e = window.event;
     if(e && e.preventDefault) e.preventDefault();
-    for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+    for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
     var offx=_self.container.offsetLeft;
     var offy=_self.container.offsetTop;
     if(_self.container.parentNode) {
@@ -740,7 +741,7 @@ function Fooplot(container,options) {
 
   this.container.ontouchmove=function(e) {
     e.preventDefault();
-    for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+    for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
     if(e.touches.length>=1) {
       var _touch=e.touches[0];
       _self.lastTouch=_touch;
@@ -752,7 +753,7 @@ function Fooplot(container,options) {
 
   this.container.ontouchstart=function(e) {
     e.preventDefault();
-    for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+    for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
     if(e.touches.length>=1) {
       var _touch=e.touches[0];
       _self.lastTouch=_touch;
@@ -764,7 +765,7 @@ function Fooplot(container,options) {
 
   this.container.ontouchend=function(e) {
     e.preventDefault();
-    for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+    for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
     if(e.touches.length==0) {
       this.mouseup(_self.lastTouch);
       _self.lastTouch=null;
@@ -774,7 +775,7 @@ function Fooplot(container,options) {
   // 2016-11-06: joseph w. : I commented this code out because I didn't like how drastic it was and I wanted to be able to easily scroll past it...
   // this.onmousewheel=function(e) {
   //   if(e === null) e = window.event;
-  //   for (i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
+  //   for (var i in FOOPLOT_INSTANCES) if(this===FOOPLOT_INSTANCES[i].container) var _self=FOOPLOT_INSTANCES[i];
   //   if(e && e.preventDefault) e.preventDefault();
   //   else e.returnValue=false;
   //   if(e && (e.srcElement?e.srcElement:e.target).className=='fooplot-tool') return null;
@@ -797,7 +798,7 @@ function Fooplot(container,options) {
 
   this.drawPoints=function(points) {
     if(points.length) {
-      for(i in points) {
+      for(var i in points) {
         if(points[i].length==2) {
           px=(points[i][0]-this.xmin)/(this.xmax-this.xmin)*this.width;
           py=(this.ymax-points[i][1])/(this.ymax-this.ymin)*this.height;
@@ -999,7 +1000,7 @@ function Fooplot(container,options) {
   this.tryToMakeFraction=function(testnum) {
     var numerator,denominator;
     // check if it is a nice fraction
-    for(var denominator=1;denominator<16;denominator++) {
+    for(denominator=1;denominator<16;denominator++) {
       numerator=(testnum*denominator).toFixed(9);
       if(numerator.indexOf('.000000000')!=-1) return parseFloat(numerator)+(denominator===1?'':'/'+denominator);
     }
@@ -1059,7 +1060,7 @@ function Fooplot(container,options) {
     var e,i;
     var pstart=-1,pend;
     if(!vars) vars=this.vars;
-    jeq_error="";
+    var jeq_error="";
     e=eq.replace(/ /g,"");
     e=e.replace(/([0-9])([a-df-z]|[a-z][a-z]|\()/ig,"$1*$2");
     e=e.replace(/(\))([0-9a-df-z]|[a-z][a-z]|\()/ig,"$1*$2");
@@ -1332,7 +1333,7 @@ var FOOPLOT_INSTANCES=[];
 
 // extended math functions
 
-FOOPLOT_MATH={};
+var FOOPLOT_MATH={}; // evidentally a missing var here in the original...
 FOOPLOT_MATH.sin=Math.sin;
 FOOPLOT_MATH.cos=Math.cos;
 FOOPLOT_MATH.tan=Math.tan;

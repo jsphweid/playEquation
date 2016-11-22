@@ -1,0 +1,34 @@
+{
+  "name": "play-equation",
+  "version": "0.1.0",
+  "description": "play mathematical equations as sound",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -a localhost -p 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsphweid/playEquation.git"
+  },
+  "author": "joseph weidinger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsphweid/playEquation/issues"
+  },
+  "homepage": "https://github.com/jsphweid/playEquation#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-htmlmin": "^2.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-htmlhint": "^0.9.13",
+    "grunt-string-replace": "^1.3.1",
+    "http-server": "^0.9.0"
+  }
+}

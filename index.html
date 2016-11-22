@@ -5,20 +5,17 @@
 		<meta charset="utf-8">
 		<title>playEquation</title>
 
-		<!-- bootstrap css local and cdn -->
-		<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
-		<!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="offline/bootstrap.css">
+		<link rel="stylesheet" href="offline/bootstrap-theme.css">
 
+		<!-- mathjax, local copies don't do anything, unfortunately -->
+		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_CHTML"></script>
+
+		
+		<!-- custom stylings -->
 		<link rel="stylesheet" href="css/main.css">
 
-		<!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script> -->
-
-			<!-- mathjax -->
-		<!-- <script src="js/mathJax.js"></script> -->
-		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_CHTML"></script>
 	</head>
 <body>
 	<div id="titleDiv" class="container">
@@ -48,7 +45,7 @@
 	<!-- plot div -->
 	<div class="container space">
 		<div class="row">
-			<div id="myPlot""></div>
+			<div id="myPlot"></div>
 		</div>
 	</div>
 
@@ -67,15 +64,12 @@
 	</div>
 
 
-	<!-- jquery local and cdn -->
-	<!-- <script src="js/vendor/jquery-1.11.2.js"></script> -->
-	<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-	<!-- bootstrap js local and cdn -->
-	<!-- <script src="js/vendor/bootstrap.min.js"></script> -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- jquery -->
+	<script src="offline/jquery3.1.1.js"></script>
+	
+	<!-- bootstrap -->
+	<script src="offline/bootstrap.js"></script>
+
 	<!-- fooplot -->
 	<script src="js/fooplot.js"></script>
 

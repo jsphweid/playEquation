@@ -1,4 +1,5 @@
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+var myPlot;
 
 $(document).ready(function() {
 
@@ -10,19 +11,25 @@ $(document).ready(function() {
 	});
 });
 
-// initialize globally...
-myPlot = new Fooplot(document.getElementById('myPlot'));
-myPlot.ymax = 1.1;
-myPlot.ymin = -1.1;
-myPlot.xmax = 0.01;
-myPlot.xmin = -0.01;
-myPlot.reDraw();
+window.onload = function() {
+	initializePlot();
+}
+
+function initializePlot() {
+	// initialize globally...
+	myPlot = new Fooplot(document.getElementById('myPlot'));
+	myPlot.ymax = 1.1;
+	myPlot.ymin = -1.1;
+	myPlot.xmax = 0.01;
+	myPlot.xmin = -0.01;
+	myPlot.reDraw();
+}
 
 function replaceAll(str, find, replace) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
 
-eqSet = {
+var eqSet = {
 	clik : function(input) {
 		if (!input) {
 			console.log('You\'ve got to enter something!');
@@ -32,9 +39,9 @@ eqSet = {
 			myPlot.reDraw();
 		}
 	}
-}
+};
 
-fixEquation = {
+var fixEquation = {
 	// helper
 	st : "",
 
@@ -55,18 +62,18 @@ fixEquation = {
 		return this.st;
 	}
 
-}
+};
 
-displayMathJax = {
+var displayMathJax = {
 	display : function(eq) {
 		var $mathJaxDiv = $('#mathJaxOutput');
 		$mathJaxDiv.empty();
 		$mathJaxDiv.append("<p>`" + eq + "`</p>");
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub,'mathJaxOutput']); // update
 	}
-}
+};
 
-makeTone = {
+var makeTone = {
 
 	sampleRate : 44100, // times per second
 	clipLength : 2, // in seconds
@@ -74,11 +81,11 @@ makeTone = {
 
 	// 2 seconds
 	makeArray : function(parsedEquation) {
-		var ret = [];
+		var ret = [], solveEquation;
 		// make a function out of the string so we only have to eval once!
-		eval('var solveEquation = function(x) {' + 
+		eval('solveEquation = function(x) {' + 
 				'return ' + parsedEquation + 
-	 		 '};')
+	 		 '};');
 
 		for (let i = 0; i < (this.sampleRate * this.clipLength); i++) {
 			ret.push(solveEquation(i / this.sampleRate));
@@ -121,7 +128,7 @@ makeTone = {
 		// use web audio api to play
 		this.play(finalArray);
 	}
-}
+};
 
 function doEverything(equation) {
 	// make pretty printed math with mathjax
