@@ -3,8 +3,8 @@ var myPlot;
 
 $(document).ready(function() {
 
-	$("#equationInput").bind('keyup', function(event) { 
-		if (event.keyCode == 13) { 
+	$("#equationInput").bind('keyup', function(event) {
+		if (event.keyCode == 13) {
 			event.preventDefault();
 			doEverything(this.value);
 		}
@@ -26,7 +26,7 @@ function initializePlot() {
 }
 
 function replaceAll(str, find, replace) {
-  return str.replace(new RegExp(find, 'g'), replace);
+	return str.replace(new RegExp(find, 'g'), replace);
 }
 
 var eqSet = {
@@ -46,7 +46,7 @@ var fixEquation = {
 	st : "",
 
 	replaceAll : function(str, find, replace) {
-  		return str.replace(new RegExp(find, 'g'), replace);
+		return str.replace(new RegExp(find, 'g'), replace);
 	},
 
 	// actually fix
@@ -83,9 +83,9 @@ var makeTone = {
 	makeArray : function(parsedEquation) {
 		var ret = [], solveEquation;
 		// make a function out of the string so we only have to eval once!
-		eval('solveEquation = function(x) {' + 
-				'return ' + parsedEquation + 
-	 		 '};');
+		eval('solveEquation = function(x) {' +
+			'return ' + parsedEquation +
+			'};');
 
 		for (let i = 0; i < (this.sampleRate * this.clipLength); i++) {
 			ret.push(solveEquation(i / this.sampleRate));
@@ -107,15 +107,15 @@ var makeTone = {
 	play : function(arr) {
 		var frameCount = audioCtx.sampleRate * 2.0;
 		var myArrayBuffer = audioCtx.createBuffer(1, frameCount, audioCtx.sampleRate);
-	    var nowBuffering = myArrayBuffer.getChannelData(0);
-	    var volume = $('#volSlider').val();
-	    for (var i = 0; i < frameCount; i++) {
-	        nowBuffering[i] = arr[i] * volume;
-	    }
-	    var source = audioCtx.createBufferSource();
-	    source.buffer = myArrayBuffer;
-	    source.connect(audioCtx.destination);
-	    source.start();
+		var nowBuffering = myArrayBuffer.getChannelData(0);
+		var volume = $('#volSlider').val();
+		for (var i = 0; i < frameCount; i++) {
+			nowBuffering[i] = arr[i] * volume;
+		}
+		var source = audioCtx.createBufferSource();
+		source.buffer = myArrayBuffer;
+		source.connect(audioCtx.destination);
+		source.start();
 	},
 
 	begin : function() {

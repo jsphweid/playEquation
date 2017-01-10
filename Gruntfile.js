@@ -27,19 +27,19 @@ module.exports = function(grunt) {
                 options: {
                     replacements: [
                         {
-                            pattern: '<link rel="stylesheet" href="offline/bootstrap.css">',
+                            pattern: '<link rel="stylesheet" href="src/offline/bootstrap.css">',
                             replacement: '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'
                         },
                         {
-                            pattern: '<link rel="stylesheet" href="offline/bootstrap-theme.css">',
+                            pattern: '<link rel="stylesheet" href="src/offline/bootstrap-theme.css">',
                             replacement: '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">'
                         },
                         {
-                            pattern: '<script src="offline/jquery3.1.1.js"></script>',
+                            pattern: '<script src="src/offline/jquery3.1.1.js"></script>',
                             replacement: '<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>'
                         },
                         {
-                            pattern: '<script src="offline/bootstrap.js"></script>',
+                            pattern: '<script src="src/offline/bootstrap.js"></script>',
                             replacement: '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'
                         }                      
                     ]
