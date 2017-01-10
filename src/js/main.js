@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 window.onload = function() {
 	initializePlot();
-}
+};
 
 function initializePlot() {
 	// initialize globally...
@@ -23,10 +23,6 @@ function initializePlot() {
 	myPlot.xmax = 0.01;
 	myPlot.xmin = -0.01;
 	myPlot.reDraw();
-}
-
-function replaceAll(str, find, replace) {
-	return str.replace(new RegExp(find, 'g'), replace);
 }
 
 var eqSet = {
