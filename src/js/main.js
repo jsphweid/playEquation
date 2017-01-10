@@ -1,6 +1,9 @@
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var myPlot;
 
+let sample1 = "sin(2 * pi * x * 440)";
+let sample2 = "sin(2 * pi * x * 440) + sin(2 * pi * x * 1000) + sin(2 * pi * x * 3959)";
+
 $(document).ready(function() {
 
 	$("#equationInput").bind('keyup', function(event) {
@@ -9,7 +12,15 @@ $(document).ready(function() {
 			doEverything(this.value);
 		}
 	});
+
+	$("#sample1Btn").click(function() { playSample(sample1) });
+	$("#sample2Btn").click(function() { playSample(sample2) });
 });
+
+function playSample(sample) {
+	$('#equationInput').val(sample);
+	doEverything(sample);
+}
 
 window.onload = function() {
 	initializePlot();
@@ -134,4 +145,3 @@ function doEverything(equation) {
 	// play tone from updated tokens above...
 	makeTone.begin();
 }
-

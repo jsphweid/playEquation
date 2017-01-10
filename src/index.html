@@ -1,79 +1,83 @@
 <!DOCTYPE html>
 
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>playEquation</title>
+<head>
+	<meta charset="utf-8">
+	<title>playEquation</title>
 
-		<!-- bootstrap -->
-		<link rel="stylesheet" href="offline/bootstrap.css">
-		<link rel="stylesheet" href="offline/bootstrap-theme.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="offline/bootstrap.css">
+	<link rel="stylesheet" href="offline/bootstrap-theme.css">
 
-		<!-- mathjax, local copies don't do anything, unfortunately -->
-		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_CHTML"></script>
+	<!-- mathjax, local copies don't do anything, unfortunately -->
+	<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_CHTML"></script>
 
-		
-		<!-- custom stylings -->
-		<link rel="stylesheet" href="css/main.css">
 
-	</head>
+	<!-- custom stylings -->
+	<link rel="stylesheet" href="css/main.css">
+
+</head>
 <body>
-	<div id="titleDiv" class="container">
-		<h1>playEquation</h1>
-		<p>... and graph it too!</p>
-	</div>
-	<div class="container space">
-		<div class="row center">
-			<p>Enter equation here and press 'enter'</p>
-			<span class="eqInputSpan spanCenter"><input class="eqInput" id="equationInput" type="text" placeholder="(sin(2 * pi * x * 440) + sin(2 * pi * x * 1000)) / (sin(2 * pi * x))"></span>
-		</div>
-
-		<br><br>
-
-		<div class="row center">
-			<p>Pretty Printed equation brought to you by <a href="https://www.mathjax.org/">MathJax.</a></p>
-			<span class="spanCenter"><div id="mathJaxOutput" class="center">`(sin(2 * pi * x * 440) + sin(2 * pi * x * 1000)) / (sin(2 * pi * x))`</div></span>
-		</div>
-		<br><br>
-		<div class="row center">
-			<span class="spanCenter">Volume: <input id="volSlider" type="range" min="0" max="1" step="0.1" value="0.1" /></span>
-		</div>
+<div id="titleDiv" class="container">
+	<h1>playEquation</h1>
+	<p>... and graph it too!</p>
+</div>
+<div class="container space">
+	<div class="row center">
+		<p>
+			Enter equation here and press ENTER
+			<button id="sample1Btn" class="btn btn-default">Example 1</button>
+			<button id="sample2Btn" class="btn btn-default">Example 2</button>
+		</p>
+		<span class="eqInputSpan spanCenter"><input class="eqInput" id="equationInput" type="text" ></span>
 	</div>
 
 	<br><br>
 
-	<!-- plot div -->
-	<div class="container space">
-		<div class="row">
-			<div id="myPlot"></div>
-		</div>
+	<div class="row center">
+		<p>Pretty Printed equation brought to you by <a href="https://www.mathjax.org/">MathJax.</a></p>
+		<span class="spanCenter"><div id="mathJaxOutput" class="center"></div></span>
 	</div>
-
-	<div class="container">
-		<div class="row" style="text-align: center;">
-			<h1>How it works</h1>
-
-			<h4>Explanation</h4>
-			<p>Basically, it takes your equation, renders it on the screen, and creates a short sound sample of how the equation sounds.</p>
-
-			<h4>Slightly more Explanation</h4>
-			<p>I use <a href="http://fooplot.com/">fooplot</a> (<a href="https://github.com/dheera/fooplot">GitHub</a>), an open-source home-made graphing utility to plot the graph. It also parses the equation and filters out a lot of possible bogus answers.</p>
-
-			<p>Next, a 2-second plain ole Array filled with sampled data is created manually by plugging in numbers for the 2-second range. This array of length 88200 is rendered by HTML5's Audio Context.</p>
-		</div>
+	<br><br>
+	<div class="row center">
+		<span class="spanCenter">Volume: <input id="volSlider" type="range" min="0" max="1" step="0.1" value="0.1" /></span>
 	</div>
+</div>
+
+<br><br>
+
+<!-- plot div -->
+<div class="container space">
+	<div class="row">
+		<div id="myPlot"></div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row" style="text-align: center;">
+		<h1>How it works</h1>
+
+		<h4>Explanation</h4>
+		<p>Basically, it takes your equation, renders it on the screen, and creates a short sound sample of how the equation sounds.</p>
+
+		<h4>Slightly more Explanation</h4>
+		<p>I use <a href="http://fooplot.com/">fooplot</a> (<a href="https://github.com/dheera/fooplot">GitHub</a>), an open-source home-made graphing utility to plot the graph. It also parses the equation and filters out a lot of possible bogus answers.</p>
+
+		<p>Next, a 2-second plain ole Array filled with sampled data is created manually by plugging in numbers for the 2-second range. This array of length 88200 is rendered by HTML5's Audio Context.</p>
+	</div>
+</div>
 
 
-	<!-- jquery -->
-	<script src="offline/jquery3.1.1.js"></script>
-	
-	<!-- bootstrap -->
-	<script src="offline/bootstrap.js"></script>
+<!-- jquery -->
+<script src="offline/jquery3.1.1.js"></script>
 
-	<!-- fooplot -->
-	<script src="js/fooplot.js"></script>
+<!-- bootstrap -->
+<script src="offline/bootstrap.js"></script>
 
-	<!-- main app -->
-	<script src="js/main.js"></script>
+<!-- fooplot -->
+<script src="js/fooplot.js"></script>
+
+<!-- main app -->
+<script src="js/main.js"></script>
 </body>
 </html>
