@@ -9,51 +9,75 @@ module.exports = function(grunt) {
         // copy
         copy: {
             main: {
-                src: ['**/*', '!**/node_modules/**', '!**/offline/**', '!**/.gitignore', '!**/package.json', '!**/.git', '!**/Gruntfile.js', '!**/README.md'],
                 expand: true,
-                // cwd: 'compareInflections',
-                dest: 'build'
+                cwd: './src',
+                src: ['./**', '!./offline/**', '!./data/**'],
+                dest: './build'
             },
         },
 
         // clean
-        clean: ['**/build'],
+        clean: ['./build'],
 
         'string-replace': {
-            inline: {
-                files: {
-                    'build/': 'index.html'
-                },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: './build',
+                    src: '*.html',
+                    dest: './build'
+                }],
                 options: {
                     replacements: [
                         {
-                            pattern: '<link rel="stylesheet" href="src/offline/bootstrap.css">',
+                            pattern: '<link rel="stylesheet" href="offline/bootstrap.css">',
                             replacement: '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'
                         },
                         {
-                            pattern: '<link rel="stylesheet" href="src/offline/bootstrap-theme.css">',
+                            pattern: '<link rel="stylesheet" href="offline/bootstrap-theme.css">',
                             replacement: '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">'
                         },
                         {
-                            pattern: '<script src="src/offline/jquery3.1.1.js"></script>',
+                            pattern: '<script src="offline/jquery3.1.1.js"></script>',
                             replacement: '<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>'
                         },
                         {
-                            pattern: '<script src="src/offline/bootstrap.js"></script>',
+                            pattern: '<script src="offline/bootstrap.js"></script>',
                             replacement: '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'
-                        }                      
+                        },
+                        {
+                            pattern: '<script src="js/fooplot.js"></script><script src="js/main.js"></script>',
+                            replacement: '<script src="js/concat.min.js"></script>'
+                        }
                     ]
                 }
             }
         },
 
+        // concat
+        concat: {
+            js: {
+                src: [ // in this order...
+                    './build/js/fooplot.js',
+                    './build/js/main.js'
+                ],
+                dest: './build/js/concat.js'
+            },
+            css: {
+                src: './build/css/*.css',
+                dest: './build/css/concat.css'
+            }
+        },
+
+
+
         uglify: {
             development: {
                 files: [{
-                    expand: true,
-                    cwd: './build/',
-                    src: '**/js/*.js',
-                    dest: './build/'
+                    // expand: true,
+                    // cwd: './build/',
+                    src: 'build/js/concat.js',
+                    dest: 'build/js/concat.min.js'
                 }]
             },
             options: {
@@ -67,23 +91,16 @@ module.exports = function(grunt) {
             },
             build: {
                 expand: true,
-                src: './build/js/*.js',
+                src: 'build/js/concat.js',
                 dest: ''
             }
         },
 
         jshint: {
-            // ignore_warning: {
-            //     options: {
-            //         '-W038': true
-            //     }
-            // }
             options: {
-                esnext: true,
-                '-W038': true,
-                '-W033': true
+                esnext: true
             },
-            files: ['js/*.js']
+            files: ['src/js/*.js']
         },
 
         htmlhint: {
@@ -98,15 +115,13 @@ module.exports = function(grunt) {
                     'src-not-empty': true,
                     'img-alt-required': true
                 },
-                src: ['./*.html']
+                src: ['./src/*.html']
             }
         },
 
         htmlmin: {
             dev: {
                 options: {
-                    removeEmptyAttributes: true,
-                    // removeEmptyElements: true,
                     removeRedundantAttributes: true,
                     removeComments: true,
                     removeOptionalTags: true,
@@ -130,12 +145,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-htmlhint');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
     grunt.registerTask('js-hint', ['jshint']);
     grunt.registerTask('html-hint', ['htmlhint']);
-    grunt.registerTask('build', ['clean', 'copy', 'string-replace', 'babel', 'uglify', 'htmlmin']);
-
+    grunt.registerTask('build', ['clean', 'copy', 'string-replace', 'concat', 'babel', 'uglify', 'htmlmin']);
 };

@@ -1,8 +1,8 @@
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var myPlot;
 
-let sample1 = "sin(2 * pi * x * 440)";
-let sample2 = "sin(2 * pi * x * 440) + sin(2 * pi * x * 1000) + sin(2 * pi * x * 3959)";
+var sample1 = "sin(2 * pi * x * 440)";
+var sample2 = "sin(2 * pi * x * 440) + sin(2 * pi * x * 1000) + sin(2 * pi * x * 3959)";
 
 $(document).ready(function() {
 
@@ -13,8 +13,8 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#sample1Btn").click(function() { playSample(sample1) });
-	$("#sample2Btn").click(function() { playSample(sample2) });
+	$("#sample1Btn").click(function() { playSample(sample1); });
+	$("#sample2Btn").click(function() { playSample(sample2); });
 });
 
 function playSample(sample) {
@@ -88,21 +88,24 @@ var makeTone = {
 
 	// 2 seconds
 	makeArray : function(parsedEquation) {
-		var ret = [], solveEquation;
+		var ret = [],
+			solveEquation,
+			i;
 		// make a function out of the string so we only have to eval once!
 		eval('solveEquation = function(x) {' +
 			'return ' + parsedEquation +
 			'};');
 
-		for (let i = 0; i < (this.sampleRate * this.clipLength); i++) {
+		for (i = 0; i < (this.sampleRate * this.clipLength); i++) {
 			ret.push(solveEquation(i / this.sampleRate));
 		}
 		return ret;
 	},
 
 	ADSR : function(arr) {
-		var j = arr.length - 1; // last index
-		for (let i = 0; i < 1000; i++) {
+		var j = arr.length - 1, // last index
+			i;
+		for (i = 0; i < 1000; i++) {
 			var fractionOfOriginal = i / 1000;
 			arr[i] *= fractionOfOriginal;
 			arr[j] *= fractionOfOriginal;
