@@ -48,6 +48,10 @@ module.exports = function(grunt) {
                         {
                             pattern: '<script src="js/fooplot.js"></script><script src="js/main.js"></script>',
                             replacement: '<script src="js/concat.min.js"></script>'
+                        },
+                        {
+                            pattern: '<link rel="stylesheet" type="text/css" href="css/main.css">',
+                            replacement: '<link rel="stylesheet" type="text/css" href="css/concat.css">'
                         }
                     ]
                 }
