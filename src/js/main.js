@@ -15,6 +15,7 @@ $(document).ready(function() {
 
 	$("#sample1Btn").click(function() { playSample(sample1); });
 	$("#sample2Btn").click(function() { playSample(sample2); });
+	$("#play").click(function() { doEverything($("#equationInput").val()); })
 });
 
 function playSample(sample) {
