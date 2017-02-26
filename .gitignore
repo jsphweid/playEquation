@@ -1,16 +1,17 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-dist
-tmp
-build
+dist/
+tmp/
+build/
+.tmp/
 
 # dependencies
-bower_components
-node_modules
+bower_components/
+node_modules/
 
 # IDEs and editors
-.idea
+.idea/
 *.iml
 .vscode
 .project
@@ -21,7 +22,7 @@ node_modules
 # misc
 .sass-cache
 connect.lock
-coverage/*
+coverage/
 libpeerconnection.log
 npm-debug.log
 testem.log

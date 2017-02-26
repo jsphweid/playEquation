@@ -1,0 +1,65 @@
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  background-color: #eee;
+}
+
+.btn {
+  padding: 14px 24px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 0 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.btn-lg.round {
+  border-radius: 24px;
+}
+
+.rowInputArea {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+span {
+  font-size: 17px;
+}
+
+.space {
+  margin-top: 20px;
+}
+
+#myPlot {
+  width: 100%;
+  height: 400px;
+  border: 2px solid grey;
+}
+
+.eqInputSpan {
+  display: block;
+  overflow: hidden;
+  padding: 0 5px 0 0;
+  width: 500px;
+}
+
+#mathJaxOutput {
+  width: 500px;
+}
+
+.center {
+  text-align: center;
+}
+
+.spanCenter {
+  display:table;
+  margin:0 auto;
+}
+
+#volSlider {
+  width: 200px;
+  text-align: center;
+}

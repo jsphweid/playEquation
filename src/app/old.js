@@ -1,3 +1,5 @@
+// import 'bootstrap/dist/css/bootstrap.css';
+
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var myPlot;
 
@@ -15,7 +17,7 @@ $(document).ready(function() {
 
 	$("#sample1Btn").click(function() { playSample(sample1); });
 	$("#sample2Btn").click(function() { playSample(sample2); });
-	$("#play").click(function() { doEverything($("#equationInput").val()); })
+	$("#playSound").click(function() { doEverything($("#equationInput").val()); })
 });
 
 function playSample(sample) {
@@ -136,7 +138,7 @@ var makeTone = {
 		var arrayToPlay = this.makeArray(parsedEquation);
 		// apply manual attack release...?
 		var finalArray = this.ADSR(arrayToPlay);
-		// use web audio api to play
+		// use web audio api to playSound
 		this.play(finalArray);
 	}
 };
@@ -146,6 +148,6 @@ function doEverything(equation) {
 	displayMathJax.display(equation);
 	// redraw graph
 	eqSet.clik(equation);
-	// play tone from updated tokens above...
+	// playSound tone from updated tokens above...
 	makeTone.begin();
 }
