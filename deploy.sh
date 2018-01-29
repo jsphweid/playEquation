@@ -1,3 +1,4 @@
+#!/bin/bash
 bucket_name=$(<~/.aws/main_bucket_name)
 cloudfront_id=$(<~/.aws/main_cloudfront_id)
 
