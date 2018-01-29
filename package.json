@@ -4,8 +4,9 @@
   "description": "play mathematical equations as sound",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server -a localhost -p 8000"
+    "build": "grunt build",
+    "deploy": "npm run build && ./deploy.sh",
+    "start": "hs src/ localhost -p 8000"
   },
   "repository": {
     "type": "git",
